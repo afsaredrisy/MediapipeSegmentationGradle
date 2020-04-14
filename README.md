@@ -14,12 +14,12 @@ git clone https://github.com/afsaredrisy/SegmentationMediapipe.git
 Download the opencv .so file from [this-link](https://github.com/opencv/opencv/releases/download/3.4.3/opencv-3.4.3-android-sdk.zip)
 unzip the and copy the corrensponding .so file in app/src/main/jniLibs
 
-Your project should look like this.
-![image](screenshots/sc2.png)
+Your project should look like this.<br/>
+![image](screenshots/sc2.png)<br/>
 
-Download mediapipe aar from [this-link](https://drive.google.com/open?id=1urxxINE2YqDdZV_Bp7-ORLjD_-n_gz-9) and copy to /app/libs folder.
+Download mediapipe aar from [this-link](https://drive.google.com/open?id=1urxxINE2YqDdZV_Bp7-ORLjD_-n_gz-9) and copy to /app/libs folder.<br/>
 
-![image](screenshots/sc1.png)
+![image](screenshots/sc1.png)<br/>
 
 **Build & Run**
 
