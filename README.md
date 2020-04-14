@@ -15,11 +15,11 @@ Download the opencv .so file from [this-link](https://github.com/opencv/opencv/r
 unzip the and copy the corrensponding .so file in app/src/main/jniLibs
 
 Your project should look like this.
-![image](screenshots/Screenshot from 2020-04-14 15-44-19.png)
+![image](screenshots/sc2.png)
 
 Download mediapipe aar from [this-link](https://drive.google.com/open?id=1urxxINE2YqDdZV_Bp7-ORLjD_-n_gz-9) and copy to /app/libs folder.
 
-![image](screenshots/Screenshot from 2020-04-14 15-43-50.png)
+![image](screenshots/sc1.png)
 
 **Build & Run**
 
