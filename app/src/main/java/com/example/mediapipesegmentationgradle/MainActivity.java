@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
                                 Size viewSize = new Size(width, height);
                                 Size displaySize = cameraHelper.computeDisplaySizeFromViewSize(viewSize);
 
-                                // Connect the converter to the camera-preview frames as its input (via
+                                https://github.com/afsaredrisy/SegmentationMediapipe         // Connect the converter to the camera-preview frames as its input (via
                                 // previewFrameTexture), and configure the output width and height as the computed
                                 // display size.
                                 converter.setSurfaceTextureAndAttachToGLContext(
