@@ -1,16 +1,16 @@
-package com.example.mediapipesegmentationgradle;
+package co.introtuce.mediapipesegmentationgradle;
 
 import android.graphics.SurfaceTexture;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.util.Log;
 import android.util.Size;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 
 import com.google.mediapipe.components.CameraHelper;
 import com.google.mediapipe.components.CameraXPreviewHelper;
@@ -22,11 +22,16 @@ import com.google.mediapipe.framework.Packet;
 import com.google.mediapipe.framework.PacketCallback;
 import com.google.mediapipe.glutil.EglManager;
 
+import co.introtuce.mediapipesegmentationgradle.helper.CustomFrameProcessor;
+import co.introtuce.mediapipesegmentationgradle.helper.MyCusExternalTextureConverter;
+import co.introtuce.mediapipesegmentationgradle.helper.SessionManager;
+
 /** Main activity of MediaPipe example apps. */
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private static final String BINARY_GRAPH_NAME = "hairsegmentationgpu.binarypb";
     private static final String INPUT_VIDEO_STREAM_NAME = "input_video";
+    private static final String PREV_RATION_STREAM_NAME = "previos_ratio";
     private static final String OUTPUT_VIDEO_STREAM_NAME = "output_video";
     private static final CameraHelper.CameraFacing CAMERA_FACING = CameraHelper.CameraFacing.BACK;
     // Flips the camera-preview frames vertically before sending them into FrameProcessor to be
@@ -48,10 +53,10 @@ public class MainActivity extends AppCompatActivity {
     private EglManager eglManager;
     // Sends camera-preview frames into a MediaPipe graph for processing, and displays the processed
     // frames onto a {@link Surface}.
-    private FrameProcessor processor;
+    private CustomFrameProcessor processor;
     // Converts the GL_TEXTURE_EXTERNAL_OES texture from Android camera into a regular texture to be
     // consumed by {@link FrameProcessor} and the underlying MediaPipe graph.
-    private ExternalTextureConverter converter;
+    private MyCusExternalTextureConverter converter;
     private long old_time = 0l;
     private long prev_time=0l;
     private long prev_samples = 0l;
@@ -70,12 +75,13 @@ public class MainActivity extends AppCompatActivity {
         AndroidAssetUtil.initializeNativeAssetManager(this);
         eglManager = new EglManager(null);
         processor =
-                new FrameProcessor(
+                new CustomFrameProcessor(
                         this,
                         eglManager.getNativeContext(),
                         BINARY_GRAPH_NAME,
                         INPUT_VIDEO_STREAM_NAME,
-                        OUTPUT_VIDEO_STREAM_NAME);
+                        OUTPUT_VIDEO_STREAM_NAME,
+                        PREV_RATION_STREAM_NAME,true);
         processor.getVideoSurfaceOutput().setFlipY(FLIP_FRAMES_VERTICALLY);
         processor.getGraph().addPacketCallback(OUTPUT_VIDEO_STREAM_NAME, new PacketCallback() {
             @Override
@@ -101,7 +107,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        converter = new ExternalTextureConverter(eglManager.getContext());
+        converter = new MyCusExternalTextureConverter(eglManager.getContext());
+        converter.setPrevRation(new SessionManager(this).getPrevration());
         converter.setFlipY(FLIP_FRAMES_VERTICALLY);
         converter.setConsumer(processor);
         if (PermissionHelper.cameraPermissionsGranted(this)) {

@@ -1,4 +1,4 @@
-package com.example.mediapipesegmentationgradle;
+package co.introtuce.mediapipesegmentationgradle;
 
 import org.junit.Test;
 

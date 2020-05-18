@@ -1,4 +1,4 @@
-package co.introtuce.nex2me.demo.analytics.accelerate;
+package co.introtuce.mediapipesegmentationgradle.videoviews;
 
 import android.graphics.SurfaceTexture;
 

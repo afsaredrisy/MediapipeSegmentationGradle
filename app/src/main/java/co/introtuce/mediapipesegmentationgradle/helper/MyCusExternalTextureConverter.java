@@ -1,4 +1,4 @@
-package com.google.mediapipe.apps.hairsegmentationgpu;
+package co.introtuce.mediapipesegmentationgradle.helper;
 
 import android.graphics.SurfaceTexture;
 import android.opengl.GLES20;
@@ -17,10 +17,11 @@ import java.util.List;
 
 import javax.microedition.khronos.egl.EGLContext;
 
-public class MyCusExternalTextureConverter  implements TextureFrameProducer {
+public class MyCusExternalTextureConverter implements TextureFrameProducer {
     private static final String TAG = "ExternalTextureConv"; // Max length of a tag is 23.
     private static final int DEFAULT_NUM_BUFFERS = 2; // Number of output frames allocated.
     private static final String THREAD_NAME = "MyCusExternalTextureConverter";
+
 
     private MyCusExternalTextureConverter.RenderThread thread;
 
@@ -56,6 +57,9 @@ public class MyCusExternalTextureConverter  implements TextureFrameProducer {
      */
     public void setFlipY(boolean flip) {
         thread.setFlipY(flip);
+    }
+    public void setPrevRation(float val){
+        thread.setPrev_ration(val);
     }
 
     /**
@@ -145,7 +149,7 @@ public class MyCusExternalTextureConverter  implements TextureFrameProducer {
         private long timestampOffsetNanos = 0;
         private long previousTimestamp = 0;
         private boolean previousTimestampValid = false;
-
+        private float prev_ration = 0.9f;
         protected int destinationWidth = 0;
         protected int destinationHeight = 0;
 
@@ -171,6 +175,9 @@ public class MyCusExternalTextureConverter  implements TextureFrameProducer {
             }
             destinationWidth = width;
             destinationHeight = height;
+        }
+        public void setPrev_ration(float val){
+            this.prev_ration = prev_ration;
         }
 
         public void setSurfaceTextureAndAttachToGLContext(
@@ -256,8 +263,9 @@ public class MyCusExternalTextureConverter  implements TextureFrameProducer {
                                                 outputFrame.getHeight()));
                             }
                             outputFrame.setInUse();
+                            Log.d(TAG,"FIRST_VAL_ "+prev_ration);
                             CustomFrameProcessor processor = (CustomFrameProcessor)consumer;
-                            processor.onNewFrame(outputFrame,0.0f);
+                            processor.onNewFrame(outputFrame,prev_ration);
                         }
                     }
                     if (!frameUpdated) {  // Need to update the frame even if there are no consumers.

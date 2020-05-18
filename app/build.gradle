@@ -4,10 +4,10 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
-        applicationId "com.example.mediapipesegmentationgradle"
+        applicationId "co.introtuce.mediapipesegmentationgradle"
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode 1
+        versionCode 3
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -30,7 +30,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-    // MediaPipe deps
+    // MediaPipe deps sudo bash configure-tomcat.sh -a app.introtuce.online -u nex2me
     implementation 'com.google.flogger:flogger:0.3.1'
     implementation 'com.google.flogger:flogger-system-backend:0.3.1'
     implementation 'com.google.code.findbugs:jsr305:3.0.2'

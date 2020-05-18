@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package co.introtuce.nex2me.demo.ui.videoviews;
+package co.introtuce.mediapipesegmentationgradle.videoviews;
 
 import android.content.Context;
 import android.media.AudioFormat;
@@ -280,8 +280,9 @@ public class RecordableSurfaceView extends SurfaceView {
 
         mediaRecorder.setVideoSource(MediaRecorder.VideoSource.SURFACE);
         mediaRecorder.setInputSurface(mSurface);
+        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
 
-        if(validateMicAvailability()) {
+        /*if(validateMicAvailability()) {
             Log.e("MY_NEW_CHANGING", "MIC Available");
             mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
             mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
@@ -293,7 +294,7 @@ public class RecordableSurfaceView extends SurfaceView {
             Log.e("MY_NEW_CHANGING", "MIC NOT Available");
             mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
           //  mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        }
+        }*/
 
 
 

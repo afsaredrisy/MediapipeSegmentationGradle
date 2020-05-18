@@ -1,4 +1,4 @@
-package com.google.mediapipe.apps.hairsegmentationgpu;
+package co.introtuce.mediapipesegmentationgradle.helper;
 
 import android.content.Context;
 import android.util.Log;
@@ -15,7 +15,7 @@ public class CustomFrameProcessor extends FrameProcessor {
     private String prev_ratio;
 
 
-    public CustomFrameProcessor(Context context, long parentNativeContext, String graphName, String inputStream, String outputStream, String prev_ratio,boolean placeholder){
+    public CustomFrameProcessor(Context context, long parentNativeContext, String graphName, String inputStream, String outputStream, String prev_ratio, boolean placeholder){
         super(context, parentNativeContext, graphName, inputStream, outputStream);
         this.prev_ratio = prev_ratio;
     }
@@ -41,7 +41,7 @@ public class CustomFrameProcessor extends FrameProcessor {
     }
 
     public CustomFrameProcessor(Context context, long parentNativeContext, String graphName, String inputStream, String outputStream,
-                                String bGVideoInputStream,String x_center_stream, String y_center_stream) {
+                                String bGVideoInputStream, String x_center_stream, String y_center_stream) {
         this(context, parentNativeContext, graphName, inputStream, outputStream,bGVideoInputStream);
         this.x_center_stream=x_center_stream;
         this.y_center_stream=y_center_stream;

@@ -1,4 +1,4 @@
-package co.introtuce.nex2me.demo.analytics.accelerate.utils;
+package co.introtuce.mediapipesegmentationgradle.helper;
 
 import android.Manifest;
 import android.app.Activity;
@@ -22,14 +22,16 @@ import android.util.Size;
 import android.util.SparseIntArray;
 import android.view.Surface;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+
 import com.google.mediapipe.components.CameraHelper;
+
 import java.io.File;
 import java.util.Arrays;
 
 import javax.annotation.Nullable;
-
 
 
 public class Camera2Helper extends CameraHelper {
@@ -148,7 +150,7 @@ public class Camera2Helper extends CameraHelper {
                 cameraId = manager.getCameraIdList()[1];
             }
             Log.d(TAG,"CameraListSiize "+manager.getCameraIdList().length);
-            if(cameraFacing==CameraFacing.BACK ){
+            if(cameraFacing== CameraFacing.BACK ){
                 cameraId = manager.getCameraIdList()[0];
                 new_cam_id = manager.getCameraIdList()[0];
                 //CameraCharacteristics.LENS_FACING_BACK+"";

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package co.introtuce.nex2me.demo.ui.videoviews;
+package co.introtuce.mediapipesegmentationgradle.videoviews;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -23,14 +23,12 @@ import android.opengl.GLUtils;
 import android.opengl.Matrix;
 import android.util.Log;
 
-import com.watermark.androidwm_light.WatermarkBuilder;
-import com.watermark.androidwm_light.bean.WatermarkImage;
-import com.watermark.androidwm_light.bean.WatermarkText;
+
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import co.introtuce.nex2me.demo.R;
+
 
 /**
  * Provides drawing instructions for a GLSurfaceView object. This class
@@ -51,7 +49,6 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     private int width, height;
     private AutoFitTextureView sourceTexture;
     private boolean rendererFlag = false;
-    private WatermarkImage watermarkImage;
     private Context context;
 
     private int textures[] = new int[2];
@@ -62,10 +59,12 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     private final float[] mProjectionMatrix = new float[16];
     private final float[] mViewMatrix = new float[16];
     private final float[] mRotationMatrix = new float[16];
-
+    private StringBuilder gpuInfo;
     private float mAngle;
-    private WatermarkText watermarkText;
 
+    public StringBuilder getGpuInfo(){
+        return gpuInfo;
+    }
     public MyGLRenderer() {
         bmp= Bitmap.createBitmap(513,912, Bitmap.Config.ARGB_8888);
     }
@@ -79,13 +78,16 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
         mTriangle = new Triangle();
         generateSquare();
+
+        gpuInfo = new StringBuilder();
+        gpuInfo.append("RENDERER : ").append(GLES20.glGetString(GL10.GL_RENDERER)).append("\n");
+        gpuInfo.append("VENDOR : ").append( GLES20.glGetString(GL10.GL_VENDOR)).append("\n");
+        gpuInfo.append("VERSION : ").append(GLES20.glGetString(GL10.GL_VERSION)).append("\n");
+        //gpuInfo.append("EXTENSIONS : ").append(GLES20.glGetString(GL10.GL_EXTENSIONS));
+
       //  mSquare   = new Square();
     }
 
-    public void setWatermarkImage(WatermarkImage watermarkImage) {
-        this.watermarkImage = watermarkImage;
-        watermarkText =new WatermarkText("Nex2me").setTextColor(R.color.Title).setPositionX(0.5).setPositionY(0.5).setTextAlpha(0);
-    }
 
     public void setSourceTexture(AutoFitTextureView sourceTexture) {
         this.sourceTexture = sourceTexture;
@@ -123,15 +125,19 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
         // Draw square
 
-        if(watermarkImage!=null){
+        /*if(watermarkImage!=null){
             mSquare.b=putWaterMark(sourceTexture.getBitmap());
         }
         else{
             mSquare.b=sourceTexture.getBitmap();
-        }
-
+        }*/
+        mSquare.b=sourceTexture.getBitmap();
 
         bmp=mSquare.b;
+        if(bmp==null){
+            Log.d("RENDERER_TEST","Frame is null");
+            return;
+        }
         mSquare.draw(bmp,textures[0]);
 
         // Create a rotation for the triangle
@@ -210,14 +216,6 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     }
 
 
-    private Bitmap putWaterMark(Bitmap bg){
-        Bitmap output= WatermarkBuilder.create(context,bg).loadWatermarkImage(watermarkImage)
-                .loadWatermarkText(watermarkText)
-                .getWatermark().getOutputImage()
-                ;
-
-        return output;
-    }
 
     /**
      * Returns the rotation angle of the triangle shape (mTriangle).

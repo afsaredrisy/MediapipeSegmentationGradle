@@ -13,12 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package co.introtuce.nex2me.demo.ui.videoviews;
+package co.introtuce.mediapipesegmentationgradle.videoviews;
 
 import android.content.Context;
 import android.view.MotionEvent;
-
-import com.watermark.androidwm_light.bean.WatermarkImage;
 
 /**
  * A view container where OpenGL ES graphics can be drawn on screen.
@@ -50,6 +48,13 @@ public class MyGLSurfaceView extends RecordableSurfaceView implements Recordable
     private final float TOUCH_SCALE_FACTOR = 180.0f / 320;
     private float mPreviousX;
     private float mPreviousY;
+
+    public StringBuilder getGPUInfo(){
+        if(mRenderer!=null){
+            return  mRenderer.getGpuInfo();
+        }
+        return null;
+    }
 
     @Override
     public boolean onTouchEvent(MotionEvent e) {
@@ -90,9 +95,9 @@ public class MyGLSurfaceView extends RecordableSurfaceView implements Recordable
         return true;
     }
 
-    public void setWaterMark(WatermarkImage waterMark){
+    /*public void setWaterMark(WatermarkImage waterMark){
         mRenderer.setWatermarkImage(waterMark);
-    }
+    }*/
 
     @Override
     public void onSurfaceCreated() {

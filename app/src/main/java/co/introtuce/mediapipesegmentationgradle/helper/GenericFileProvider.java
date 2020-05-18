@@ -1,4 +1,4 @@
-package co.introtuce.nex2me.demo.fileManager;
+package co.introtuce.mediapipesegmentationgradle.helper;
 
 
 import androidx.core.content.FileProvider;

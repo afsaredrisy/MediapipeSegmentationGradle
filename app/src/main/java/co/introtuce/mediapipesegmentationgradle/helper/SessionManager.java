@@ -1,7 +1,8 @@
-package com.nex2me.introtuce.version10.Support;
+package co.introtuce.mediapipesegmentationgradle.helper;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+
 public class SessionManager {
 
     final int x=5;
@@ -28,6 +29,7 @@ public class SessionManager {
     public static final String KEY_PHONE = "phone";
     public static final String KEY_STATUS = "status";
     public static final String KEY_PUSHY = "pushy";
+    public static final String KEY_PREVRATION = "PREV_RATIO";
 
     public SessionManager(Context context){
         final  int c;
@@ -50,6 +52,10 @@ public class SessionManager {
 
     public void savePushy(String deviceToken){
         editor.putString(KEY_PUSHY,deviceToken);
+        editor.commit();
+    }
+    public void savePrevRation(float ration){
+        editor.putFloat(KEY_PREVRATION,ration);
         editor.commit();
     }
 
@@ -104,6 +110,9 @@ public class SessionManager {
     }
     public String getPushy(){
         return  pref.getString(KEY_PUSHY,null);
+    }
+    public float getPrevration(){
+        return  pref.getFloat(KEY_PREVRATION,0.9f);
     }
     public void saveMyName(String name){
         editor.putString("MY_NAME",name);

@@ -1,4 +1,4 @@
-package co.introtuce.nex2me.demo.ui.videoviews;
+package co.introtuce.mediapipesegmentationgradle.videoviews;
 
 import android.view.MotionEvent;
 

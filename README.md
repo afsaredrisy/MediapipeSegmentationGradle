@@ -1,6 +1,13 @@
 # Mediapipe Segmentation Sample 
 
 
+# Added Features 
+
+1. Apply mediapipe on local video (mp4 etc.)
+2. Customize combine_with_previous_ratio value.
+3. Record Mediapipe rendered video.
+4. Save log in a file (Mediapipe runtime , Cpu & GPU details).
+
 # How to use 
 
 **Download git repository** 
@@ -37,3 +44,5 @@ Number of Channels: 3
 ```
 
 To change model copy your tflite file in assets folder with name hair_segmentation.tflite
+
+Note: The model added to this repository is just for demo and not the accurate one, must use your own tflite file.

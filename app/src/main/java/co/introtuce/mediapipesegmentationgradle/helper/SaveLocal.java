@@ -1,4 +1,4 @@
-package co.introtuce.nex2me.demo.fileManager;
+package co.introtuce.mediapipesegmentationgradle.helper;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import java.io.BufferedInputStream;
@@ -17,6 +16,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.sql.Time;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Random;
 
 public class SaveLocal {
@@ -71,7 +74,9 @@ public class SaveLocal {
     private static void savefile(Uri sourceuri,String rootpath)
     {
         String sourceFilename= sourceuri.getPath();
-        String destinationFilename =rootpath+""+File.separatorChar+"myfile.mp4";
+        Date dateTime = Calendar.getInstance().getTime();
+        String timestamp = dateTime.toLocaleString();
+        String destinationFilename =rootpath+""+File.separatorChar+timestamp+".mp4";
         File file=new File(rootpath,"myg.mp4");
 
 
@@ -209,6 +214,52 @@ public class SaveLocal {
         }
         return "";
     }
+    public static String copyFileFromUri(Context context, Uri fileUri, String baseFileName)
+    {
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
+
+        try
+        {
+            ContentResolver content = context.getContentResolver();
+
+            inputStream = content.openInputStream(fileUri);
+            Log.d("SAVE_PHONE","Get Content resolver");
+            File root = Environment.getExternalStorageDirectory();
+            if(root == null){
+                Log.d("SAVE_PHONE", "Failed to get root");
+            }
+
+            // create a directory
+            File saveDirectory = new File(Environment.getExternalStorageDirectory()+File.separator+ "nex2me/media/video" +File.separator);
+            // create direcotory if it doesn't exists
+            if(!saveDirectory.exists())
+                saveDirectory.mkdirs();
+            long time = System.currentTimeMillis();
+            String fileName=baseFileName+"_"+time;//fileUri.getPath().substring(fileUri.getPath().lastIndexOf("/"+1));
+            if(fileName.indexOf(".")>0){
+                fileName=fileName.substring(0,fileName.indexOf("."));
+            }
+            outputStream = new FileOutputStream( saveDirectory + fileName+""+"nex2me.mp4"); // filename.png, .mp3, .mp4 ...
+            if(outputStream != null){
+                Log.e( "SAVE_PHONE", "Output Stream Opened successfully");
+            }
+
+            byte[] buffer = new byte[1000];
+            int bytesRead = 0;
+            while ( ( bytesRead = inputStream.read( buffer, 0, buffer.length ) ) >= 0 )
+            {
+                outputStream.write( buffer, 0, buffer.length );
+            }
+            return ""+time;
+        } catch ( Exception e ){
+            Log.e( "SAVE_PHONE", "Exception occurred " + e.getMessage());
+        } finally{
+
+        }
+        return "";
+    }
+
 
 
 
@@ -319,7 +370,48 @@ public class SaveLocal {
     }*/
 
 
+    public static String saveLogFile(String fn,String content)
+    {
+        OutputStream outputStream = null;
 
+        try
+        {
+            //ContentResolver content = context.getContentResolver();
+
+            //inputStream = content.openInputStream(fileUri);
+            Log.d("SAVE_PHONE","Get Content resolver");
+            File root = Environment.getExternalStorageDirectory();
+            if(root == null){
+                Log.d("SAVE_PHONE", "Failed to get root");
+            }
+
+            // create a directory
+            File saveDirectory = new File(Environment.getExternalStorageDirectory()+File.separator+ "nex2me/log" +File.separator);
+            // create direcotory if it doesn't exists
+            if(!saveDirectory.exists())
+                saveDirectory.mkdirs();
+            String fileName=fn;
+            if(fileName.indexOf(".")>0){
+                fileName=fileName.substring(0,fileName.indexOf("."));
+            }
+            String rootPath = Environment.getExternalStorageDirectory()+File.separator+ "nex2me/log" +File.separator;
+            outputStream = new FileOutputStream( rootPath + fileName+""+"_log.txt"); // filename.png, .mp3, .mp4 ...
+            if(outputStream != null){
+                Log.e( "SAVE_PHONE", "Output Stream Opened successfully");
+            }
+
+            byte[] buffer = content.getBytes();
+            outputStream.write(buffer);
+            int bytesRead = 0;
+
+            return saveDirectory + fileName+""+"_log.txt";
+        } catch ( Exception e ){
+            Log.e( "SAVE_PHONE", "Exception occurred " + e.getMessage());
+        } finally{
+
+        }
+        return "";
+    }
 
 
 }

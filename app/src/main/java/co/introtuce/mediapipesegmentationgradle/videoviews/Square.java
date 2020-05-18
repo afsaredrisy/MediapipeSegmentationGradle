@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package co.introtuce.nex2me.demo.ui.videoviews;
+package co.introtuce.mediapipesegmentationgradle.videoviews;
 
 import android.opengl.GLES20;
 
