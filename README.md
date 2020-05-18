@@ -43,6 +43,8 @@ output: [224,224]
 Number of Channels: 3
 ```
 
+You need to change input/output & chanel size in segmentation graph according to your tflite model,
+
 To change model copy your tflite file in assets folder with name hair_segmentation.tflite
 
 Note: The model added to this repository is just for demo and not the accurate one, must use your own tflite file.
