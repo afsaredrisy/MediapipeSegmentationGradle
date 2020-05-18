@@ -445,7 +445,7 @@ public class SegmenterActivity extends AppCompatActivity {
             public void run() {
                 stringBuilder = new StringBuilder();
                 newCpuMeter();
-                
+
             }
         }).start();
     }

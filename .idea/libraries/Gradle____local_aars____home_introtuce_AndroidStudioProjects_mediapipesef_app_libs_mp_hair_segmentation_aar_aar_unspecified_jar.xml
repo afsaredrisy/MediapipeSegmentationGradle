@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: __local_aars__:/home/introtuce/AndroidStudioProjects/mediapipesef/app/libs/mp_hair_segmentation_aar.aar:unspecified@jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b51b0c848020b6fa27053694d4588ee6/mp_hair_segmentation_aar/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b51b0c848020b6fa27053694d4588ee6/mp_hair_segmentation_aar/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
