@@ -445,29 +445,7 @@ public class SegmenterActivity extends AppCompatActivity {
             public void run() {
                 stringBuilder = new StringBuilder();
                 newCpuMeter();
-                     /*while (captureLog){
-                         try {
-                             total = 0;
-                             count = 0;
-                             for (int i = 0; i < calcCpuCoreCount(); i++) {
-                                 //textView.append(takeCurrentCpuFreq(i) +"\n");
-                                 int spu = takeCurrentCpuFreq(i);
-                                 count = count+1;
-                                 total = total+spu;
-                             }
-                             runOnUiThread(new Runnable() {
-                                 @Override
-                                 public void run() {
-                                     cpu.setText("CPU Usage: "+(total/count));
-                                 }
-                             });
-
-                             Thread.sleep(1000/2);
-                         }catch (Exception e){
-                             Log.d(TAG,e.toString());
-                         }
-                     }*/
-
+                
             }
         }).start();
     }
