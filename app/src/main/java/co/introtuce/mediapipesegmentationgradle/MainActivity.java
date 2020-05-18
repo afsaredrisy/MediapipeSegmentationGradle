@@ -25,12 +25,10 @@ import com.google.mediapipe.glutil.EglManager;
 /** Main activity of MediaPipe example apps. */
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
-
     private static final String BINARY_GRAPH_NAME = "hairsegmentationgpu.binarypb";
     private static final String INPUT_VIDEO_STREAM_NAME = "input_video";
     private static final String OUTPUT_VIDEO_STREAM_NAME = "output_video";
-    private static final CameraHelper.CameraFacing CAMERA_FACING = CameraHelper.CameraFacing.FRONT;
-
+    private static final CameraHelper.CameraFacing CAMERA_FACING = CameraHelper.CameraFacing.BACK;
     // Flips the camera-preview frames vertically before sending them into FrameProcessor to be
     // processed in a MediaPipe graph, and flips the processed frames back when they are displayed.
     // This is needed because OpenGL represents images assuming the image origin is at the bottom-left
@@ -40,14 +38,12 @@ public class MainActivity extends AppCompatActivity {
     static {
         // Load all native libraries needed by the app.
         System.loadLibrary("mediapipe_jni");
-        System.loadLibrary("opencv_java3");
+        //System.loadLibrary("opencv_java3");
     }
-
     // {@link SurfaceTexture} where the camera-preview frames can be accessed.
     private SurfaceTexture previewFrameTexture;
     // {@link SurfaceView} that displays the camera-preview frames processed by a MediaPipe graph.
     private SurfaceView previewDisplayView;
-
     // Creates and manages an {@link EGLContext}.
     private EglManager eglManager;
     // Sends camera-preview frames into a MediaPipe graph for processing, and displays the processed
@@ -62,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView;
     // Handles camera access via the {@link CameraX} Jetpack support library.
     private CameraXPreviewHelper cameraHelper;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,11 +65,9 @@ public class MainActivity extends AppCompatActivity {
         textView=findViewById(R.id.text);
         previewDisplayView = new SurfaceView(this);
         setupPreviewDisplayView();
-
         // Initialize asset manager so that MediaPipe native libraries can access the app assets, e.g.,
         // binary graphs.
         AndroidAssetUtil.initializeNativeAssetManager(this);
-
         eglManager = new EglManager(null);
         processor =
                 new FrameProcessor(
@@ -141,11 +134,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void surfaceCreated(SurfaceHolder holder) {
                                 processor.getVideoSurfaceOutput().setSurface(holder.getSurface());
-
-
-
                             }
-
                             @Override
                             public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
                                 // (Re-)Compute the ideal size of the camera-preview display (the area that the
@@ -153,14 +142,12 @@ public class MainActivity extends AppCompatActivity {
                                 // based on the size of the SurfaceView that contains the display.
                                 Size viewSize = new Size(width, height);
                                 Size displaySize = cameraHelper.computeDisplaySizeFromViewSize(viewSize);
-
                                 https://github.com/afsaredrisy/SegmentationMediapipe         // Connect the converter to the camera-preview frames as its input (via
                                 // previewFrameTexture), and configure the output width and height as the computed
                                 // display size.
                                 converter.setSurfaceTextureAndAttachToGLContext(
                                         previewFrameTexture, displaySize.getWidth(), displaySize.getHeight());
                             }
-
                             @Override
                             public void surfaceDestroyed(SurfaceHolder holder) {
                                 processor.getVideoSurfaceOutput().setSurface(null);
